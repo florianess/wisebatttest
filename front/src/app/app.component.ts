@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { BackService } from './back.service';
+import { MatDialog, MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,7 @@ export class AppComponent {
   log = false;
   add = false;
 
-  constructor(private backService: BackService){ }
+  constructor(private backService: BackService,public dialog: MatDialog){ }
 
   sign(){
     this.backService.sign(this.email,this.password)
@@ -23,19 +24,26 @@ export class AppComponent {
   login(){
     this.backService.login(this.email,this.password)
       .subscribe((resp) => {
-        console.log(resp.jwt);
         window.localStorage['jwt'] = resp.jwt;
         this.log = true;
       })
   }
 
-  addForm(){
-    this.add = true;
+  openDialog(){
+    const dialogRef = this.dialog.open(AppDialog);
   }
+}
+
+@Component({
+  selector: 'app-dialog',
+  templateUrl: './app-dialog.component.html',
+})
+export class AppDialog {
+  constructor(public dialogRef: MatDialogRef<AppDialog>,private backService: BackService){}
 
   addTask(){
-    this.add = false;
+    this.dialogRef.close();
     this.backService.addTask(this.name,this.description)
-      .subscribe(()=>console.log("TEST"));
+      .subscribe((resp)=> console.log(resp));
   }
 }

@@ -27,24 +27,13 @@ const UserSchema = new Schema({
 })
 
 mongoose.connect(url);
-var db = mongoose.connection;
 const taskModel = mongoose.model('task',TaskSchema);
 const userModel = mongoose.model('user',UserSchema);
-
-/*
-MongoClient.connect(url, function(err, client) {
-  const db = client.db('wisebatt');
-  const collection = db.collection(dbName);
-  collection.find({}).toArray(function(err, docs) {
-    console.log(docs);
-    data = docs;
-  });
-});*/
 
 app.get('/',(req,res) => res.send('Hello'));
 
 app.get('/task',(req,res) => {
-  db.model('task').find((err,tasks) => res.send(tasks))
+  taskModel.find((err,tasks) => res.send(tasks))
 })
 
 app.post('/login',(req,res) => {
@@ -72,7 +61,6 @@ app.post('/sign',(req,res) => {
 })
 
 app.post('/task',(req,res) => {
-  console.log('CCCC');
   const token = req.headers['authorization'];
   jwt.verify(token, secret, (err,decoded) => {
   const user = userModel.findOne({email: decoded.email}).cast;

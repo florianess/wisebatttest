@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>New Task</h1>
+<div mat-dialog-content>
+  <mat-form-field>
+    <input matInput type="text" placeholder="Name" [(ngModel)]="name">
+  </mat-form-field>
+  <br>
+  <mat-form-field>
+    <input matInput type="text" placeholder="Description" [(ngModel)]="description">
+  </mat-form-field>
+  <br>
+  <button mat-raised-button (click)="addTask()">Add</button>
+</div>

@@ -42,7 +42,6 @@ export class BackService {
 
   addTask(name:string,desc:string){
     httpOptions.headers = httpOptions.headers.set('Authorization', window.localStorage['jwt']);
-    console.log(httpOptions);
     return this.http.post(url+"task",JSON.stringify({name:name,description:desc}),httpOptions);
   }
 }

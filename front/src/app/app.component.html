@@ -1,21 +1,21 @@
 <!--The content below is only a placeholder and can be replaced.-->
 
-<h1>
+<h1 class="mat-display-1">
   {{ title }}
 </h1>
-<div *ngIf="!log" class="container">
-  <input type="email" placeholder="Email" [(ngModel)]="email"><br>
-  <input type="password" placeholder="Password" [(ngModel)]="password"><br>
-  <button mat-button (click)="login()">Log in</button>
-  <button mat-button (click)="sign()">Sign up</button>
-</div>
+<mat-card *ngIf="!log">
+  <mat-form-field>
+    <input matInput type="email" placeholder="Email" [(ngModel)]="email">
+  </mat-form-field>
+  <br>
+  <mat-form-field>
+    <input matInput type="password" placeholder="Password" [(ngModel)]="password">
+  </mat-form-field>
+  <br>
+  <button mat-raised-button (click)="login()">Log in</button>
+  <button mat-raised-button (click)="sign()">Sign up</button>
+</mat-card>
 <div *ngIf="log">
-  <button mat-button (click)="addForm()">Ajouter</button>
+  <button mat-button (click)="openDialog()">Add</button>
   <my-table></my-table>
-</div>
-<div *ngIf="add" mat-dialog-content>
-  <p>New Task</p>
-  <input type="text" placeholder="Name" [(ngModel)]="name"><br>
-  <input type="text" placeholder="Description" [(ngModel)]="description"><br>
-  <button mat-button (click)="addTask()">Ajouter</button>
 </div>
